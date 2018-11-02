@@ -1,0 +1,261 @@
+Magento Architecture : 
+There 3 type of module in magento2 registration process  means 3 type of registration.php using
+1. Theme
+2. language
+3. module
+theme=> registeration.php
+\Magento\Framework\Component\ComponentRegister::register(\Magento\Framework\Component\ComponentRegister::THEME,Ezest_Practice,__dir__);
+language => registeration.php
+\Magento\Framework\Component\ComponentRegister::register(Magento\Framework\Component\ComponentRegister::LANGUAGE,Ezest_Language,__dir__);
+module
+\Magento\Framework\Component\ComponentRegister::register(\Magento\Framework\Component\ComponentRegister::THEME,Ezest_Theme,__dir__);
+
+#There are five areas:
+1.adminhtml
+2.frontend
+3.base
+4.webapi_rest
+5.webapi_soap
+6.cron
+The three necessary files to bootstrap a module
+are:
+registeration.php
+etc/module.xml
+composer.json
+
+# PSR-0 standard has been deprecated, Composer still uses this idea to
+assist in autoloading classes. In /composer.json (in the root folder), there should
+be a “psr-0” node.
+Inside it, will be an “app/code” value. This has the same effect of
+adding an include directory for PHP to search.
+
+# Module Loader
+Magento\Framework\Module\ModuleList\Loader
+
+#view Model block
+	<block name="testViewModel" class="Magento\Framework\View\Element\Template" templates="Ezest_Practice::viewModel.phtml">
+		<arguments>
+		  <arguement name="viewModel" xsi:type="object">Ezest\Customchart\ViewModel\CustomBlock</argument>
+		</arguments>
+	</block>
+	
+Model class should be implements Magento\Framework\View\Element\Block\ArgumentInterface
+in template file $modelObejct = $block->getData('viewModel'); use modelObejct to access all member with viewModel class.
+
+Above 2.2 version class argument is not need to specify as it is default
+
+#Write own command
+Add your commnad in Magento\Framework\Console\CommandList plugin in di.xml
+<type name="\Magento\Framework\Command\CommandList">
+<arguments>
+	<argument name="greetingCommand" xsi:type="object">Ezest\Practice\Console\Command\CustomCommand</argument>
+</arguments>
+</type>
+
+Command class should be extends:
+Symfony\Component\Console\Command\Command class
+there is two functions is mandatory configure and execute.
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+#cron decalare in crontab.xml
+<group id="default">
+ <job instance="Ezest\Practice\Cron\TestCron" method="execute" name="ezest_helloword_cron">
+	  <schedule>* * * * * </schedule>
+ </job>
+</group>
+cron class dont implents/extends any class.it must have execute method which is run while trigger cron.
+php bin/magento cron:run --group="customgroupname or default"
+after run cron a entries will be there in cron_schedule table with job_code="yourcron name which is in crontab.xml"
+
+#etc config xml
+Some files have to be within an area folder (e.g. routes.xml and sections. xml),
+some have to be global (e.g. acl.xml) and some can be global or area specific
+(e.g. di.xml).
+
+# /i18n: 
+Translation CSV Files
+This is where all a module’s translation CSV files are located. In Magento 1, these
+were in app/locale/de_DE/.
+There are CSV files with two columns: From, To
+
+#observer 
+The PHP class should follow the stand
+of using TitleCase while the event name should be snake_case
+dont use business logic in it put somewhere else and inject that class in it
+events.xml
+<event name="checkout_onepage_controller_action">
+	<observer name="orderplac" instance="Ezest\Practice\Observer\CustomObserver"></observer>
+</event>
+To create new event
+\Magento\Framework\Event\ManagerInterface->dispatch('event_name',['mp_text'=>$textDisplay]);
+Observer must implements \Magento\Framework\Event\ObserverInterface
+to get data from above event
+execute (Magento\Framework\Event\Observer $observer); $observer->getData('mp_text')
+
+# plugins :
+three type of plugins in magento2:
+before
+around
+after
+Note: In case the callable is not declared, the calling to neither the next plugin nor the original method is achieved.
+
+use sort order to set priority of plugins
+
+plugins are declared in di.xml
+<type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+ <plugin name="add_custom_field_checkout_form" type="Ezest\Practice\Plugin\Checkout\LayoutProcessor" sortOrder="100"></plugin>
+</type>
+
+#Setup there are 6 type of schema class provided by magento2
+InstallSchema.php implents Magento\Framework\Setup\InstallSchemaInterface 
+function  install(\Magento\Framework\Setup\SchemaSetupInterface $setup,\Magento\Framework\Setup\ModuleContextInterface $context)
+
+UpgradeSchema.php implements \Magento\Framework\Setup\UpgradeSchemaInterface 
+ upgrade(\Magento\Framework\Setup\SchemaSetupInterface $setup,\Magento\Framework\Setup\ModuleContextInterface $context)
+(version_compare($context->getVersion(), '1.0.1') < 0) getVersion function retunr the version from setup_module table respective your module entry and match with your upgrade version which is you have mention in etc\module.xml if it match it retun 1 otherwise it retun -1 which less than from 0 then you script will be excuted.
+
+InstallData.php implements \Magento\Framework\Setup\InstallDataInterface 
+ install(\Magento\Framework\Setup\ModuleDataSetupInterface $setup,\Magento\Framework\Setup\ModuleContextInterface $context)
+UpgradeData.php	implements \Magento\Framework\Setup\UpgradeDataInterface upgrade()
+  upgrade(\Magento\Framework\Setup\ModuleDataSetupInterface $setup,\Magento\Framework\Setup\ModuleContextInterface $context)
+Recuring.php   implements \Magento\Framework\Setup\InstallSchemaInterface 
+function  install(\Magento\Framework\Setup\SchemaSetupInterface $setup,\Magento\Framework\Setup\ModuleContextInterface $context)
+Unistall.php  implements \Magento\Framework\Setup\UistallDataInterface 
+unistall(\Magento\Framework\Setup\SchemaSetupInterface $setup,\Magento\Framework\Setup\ModuleContextInterface $context)
+
+However, magento  setup:db-schema:upgrade and magento setup:db-data:upgrade do allow the scripts to be executed independently, and do not require the configuration cache to be cleared.
+
+# Test
+php bin/magento dev:tests:run
+testing type =>
+1. api-functional
+2. functional
+3. integration
+4. js
+5. static
+6. unit
+
+#Ui folder contain colum actions \Magento\Ui\Component\Listing\Column\Column
+function prepareDataSource
+/view/adminhtml/ui_component
+# acl.xml
+<acl>
+	<resources>
+		 <resource id="Magento_Backend::admin">
+		 </resource>
+	</resources>
+</acl>
+"Magento_Backend::admin" it is top id of all acl. 
+# config.xml
+<section>
+ <group>
+   <field>value</field>
+ </group>
+</section>
+if there is multi select drop down then enter default value with comma seprated lik a,bc from a,b,c,d,e,f,g,h
+
+# email_templates.xml
+<template id="practice_create_practice_email_template" label="New Practice" file="practice_new.html" type="html" area="frontend" module="Ezest_Practice"/>
+file path view\frontend\email\practice_new.html
+add a new handle in email_templates in anywhere
+{{layout area="frontend" handle="email_template"}}
+magento will search handle name in view\frontend\layout folder and render output at given location
+# indexer.xml
+<indexer id="ezest_practice_indexer" view_id="ezest_practice_indexer" class="Ezest\Practice\Indexer\Test">
+  <title translate="true">Ezest Practice Indexer</title>
+        <description translate="true">Practice of custom indexer</description>
+</indexer>
+view id will be describe in mview.xml like below:
+	<view id="ezest_practice_indexer" class="Ezest\Practice\Indexer\Test">
+	  <subscriptions>
+		<table name="catalog_product_entity" entity_column="entity_id"/>
+	  </subscriptions>
+	</view>
+	indexer class  implements \Magento\Framework\Indexer\ActionInterface and \Magento\Framework\Mview\ActionInterface
+#menu.xml
+<menu>
+  <add id="Ezest_Practice::parent" title="Practice" module="Ezest_Practice" resource="Ezest_Practice::manage"/>
+  child menu declare under parent id
+  <add id="Ezest_Practice::manage" title="Manage Items" module="Ezest_Practice" resource="Ezest_Practice" parent="Ezest_Practice::parent" action="post/index/index"/>
+ </menu>
+ #
+ etc/frontend/routes.xml
+ <router id="standard">
+  <route id="practices" frontname="practice">
+     <module name="Ezest_Practice" />
+  </route>
+ </router>
+ etc/adminhtml/routes.xml
+ <router id="admin">
+    <route id="practice" frontename="practice">
+       <module name="Ezest_Practice"></module>
+   </route>
+ </router>
+ 
+ system.xml
+ <depends><field id="practice_section/general/enable">1</field></depends>
+ if the  field name of this practice_section/general/enable is 1 then above field will show otherwise will not show.
+ <source_model>Ezest\Practice\Model\Config\Source\Custom</source_model>
+ source model implements \Magento\Framework\Option\ArrayInterface or \Magento\Framework\Data\OptionSourceInterface
+ and must implements toOptionArray function with retun key and value type array
+ 
+ <backend_model>Ezest\Practice\Model\Config\Backend\Custom</backend_model> it extends \Magento\Framework\App\Config\Value and implements \Magento\Framework\App\Config\ValueInterface
+ use beforeSave and afterSave method to change saving data
+
+ <frontend_model>Magento\Config\Block\System\Config\Form\Field\Notification<frontend_model>
+ it extends \Magento\Config\Block\System\Config\Form\Field
+ and implements \Magento\Framework\Data\Form\Element\Renderer\RendererInterface
+ 
+ reource mention in section only not any other group or field
+ 
+ # view.xml=>
+ exclude => to exclude js file 
+ #webapi.xml
+ <routes>
+   <route url="/V1/practice/:id" method="GET">
+		<service class="Ezest\Practice\Api\PracticeInterface" method="getPracticeDetails"></service>
+		<resources>
+		   <resource ref="Ezest_Practice"></resource>
+		</resources>
+   </route>
+   <route url="/V1/practice/create" method="POST">
+        <service class="Ezest\Practice\Api\PracticeInterface" method="savePractice"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+ </routes>
+# widgets.xml
+<widgets>
+  <widget id="ezest_practice_widget_post" class="Ezest\Practice\Block\Widget\Post">
+      <label>Blog Post</label>
+	  <description>Posts</description>
+	  <parameters>
+	    <parameter name="posts" sort_order="11" visible="true" xsi:type="text">
+		   <label>CUstom post label</label>
+		</parameter>
+			<parameter name="record" sort_order="12" visible="true" required="true" xsi:type="select">
+				<label>Select number of records</label>
+				<options>
+					<option name="all" value="all" selected="true"><label>All</label></option>
+					<option name="num" value="10"><label>10</label></option>
+				</options>
+			</parameter>
+	  </parameters>
+  </widget>
+</widgets>
+
+https://devdocs.magento.com/guides/v2.2/config-guide/config/config-files.html#config-files-classes-int
+https://www.atwix.com/magento-2/working-with-customconfiguration-
+files/
+
+#
+The deploy mode (bin/magento deploy:mode:show) determines which class
+loader is used.
+• Developer: vendor/magento/framework/ObjectManager/Factory/
+Dynamic/Developer.php
+• Production: vendor/magento/framework/ObjectManager/Factory/
+Dynamic/Production.php
+
+
