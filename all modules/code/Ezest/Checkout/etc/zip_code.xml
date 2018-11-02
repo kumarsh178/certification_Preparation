@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Directory:etc/zip_codes.xsd">
+
+	<!-- Specify the country ISO code-->
+	<zip countryCode="US">
+		<!-- You can specify several patterns for one country -->
+    	<codes>
+	        <code id="pattern_1" active="true" example="12345-6789">^[0-9]{5}\-[0-9]{4}$</code>
+    	    <code id="pattern_2" active="true" example="12345">^[0-9]{5}$</code>
+    	</codes>
+	</zip>
+</config>

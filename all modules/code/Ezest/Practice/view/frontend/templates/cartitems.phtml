@@ -1,0 +1,12 @@
+<?php 
+$productsItem = $block->getProducts();
+$itemsVisible = $productsItem->getAllVisibleItems();
+
+foreach($itemsVisible as $items){
+	echo $items->getProductId();
+	echo $items->getName();
+	echo '</br>';
+
+}
+echo 'heloo';
+?>
