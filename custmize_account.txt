@@ -1,0 +1,8 @@
+How would you customize the “Order History” page?
+go to sales_order_history.xml layout of sales module
+and an easy place to insert sales.order.history.info container
+
+while you creating customer attribute add the script into upgrade data script
+
+check the make sure is_system value is set to 0
+and check customer_form_attribute table populate with customer_account_edit value respective that attribute id

@@ -1,2 +1,6 @@
 https://www.emiprotechnologies.com/technical_notes/magento-technical-notes-60/post/magento-2-useful-commands-list-391
 
+If you dont want to remove pub/static files while installing/updating database  then use following command
+
+php bin/magento setup:upgrade --keep-generated
+

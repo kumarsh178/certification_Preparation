@@ -1,0 +1,14 @@
+include module level js Ezest_Customchart\js\function.js
+include lib/web folder js =testlib
+include theme level js => js\testtheme
+require(['Ezest_Customchart\js\function.js','testlib','js\testtheme'],function(){
+});
+
+public /static/en_us=>
+module level js =>Ezest_Customchart\js\functions.js
+lib web js =>testlib.js
+theme level js =>js/testtheme
+
+bin/ magento dev:template-hints:enable
+
+view_block_abstract_to_html_before	event is triggered

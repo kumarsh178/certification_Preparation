@@ -1,0 +1,9 @@
+to synchronize orders you can use sales_order_place_after event
+you can also use RabbitMQ
+if consistency is importent using a messaging system might not be a best approach
+if the opration fails after being sent to the external system,the data in two system become inconsitent
+
+invoice are build against the \Magento\Sales\Api\Data\InvoiceInterface
+
+to create a online memo go to an order click on the invoice tab and then click credit memo tab
+please note that this option is only available if payment method is online

@@ -1,0 +1,38 @@
+EAV stores the attribute data in tables specific to the attribute’s type
+(backend_ type column). The exception is when the attribute type is static: this
+means the attribute value will be stored in the entity’s primary table.
+
+# There are 2 MySQL tables that keep indexer codes and statuses:
+
+indexer_state
+mview_state
+
+eav resource model extends \Magento\Eav\Model\Entity\AbstractEntity
+
+Create the new frontend class that extends \Magento\Eav\Model\
+Entity\Attribute\Frontend\AbstractFrontend.
+• Set the frontend_model for the attribute needed to customize.
+• Build the needed functionality in the getValue method
+
+To make attribute an entry in flat table:
+visible_on_front=true
+used_in_product_listing = true
+
+to add attribute of category :
+to show any category attribute on backend use adminhtml\ui_component\category_form.xml
+<formElemnts>
+	<select>
+		<settings>
+			<options class="Ezest\Category\Model\Source\Options"></options>
+		</settings>
+	</select>
+</formElements>
+
+
+A few classes extend \Magento\Eav\Setup\EavSetupFactory that provide
+additional features for specific entity types:
+
+categories =>\Magento\Catalog\Setup\CategorySetup
+customers =>\Magento\Customer\Setup\CustomerSetup
+orders,invoice,shipping,and credit memos =>Magento\Sales\Setup\SalesSetup
+quotes =>\Magento\Quote\Setup\QuoteSetup

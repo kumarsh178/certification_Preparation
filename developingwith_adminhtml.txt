@@ -1,0 +1,40 @@
+To use sensitive configuration data
+use plugins in di.xml and mention all the system configuration path in it
+<type name="Magento\Config\Model\Config\TypePool">
+	<arguments>
+	  <argument name="sensitive" xsi:type="array">
+	     <item name="section\group\field" xsi:type="string">1</item>
+	  </argument>
+	</arguments>		
+</type>
+<type name="Magento\Config"\Model\Config\TypePool">
+	<arguments>
+	   <argument name="enviroment" xsi:type="array">
+		 <item name="section\group\field" xsi:type="string">1</array>
+	   </argument>
+	</arguments>
+</type>
+
+# The resources defined in acl.xml do not only apply to the admin user
+interface but also can be used to restrict access to REST and SOAP APIs and
+extension attributes.
+
+# Another difference is secret keys in admin urls. This prevents cross-site request
+forgery by ensuring that Magento generates links to every page in Magento admin.
+
+Admin block should be extends \Magento\Backend\Block\Template
+controllsers => \Magento\Backend\App\AbstractAction
+_isAllowed
+
+Grid =>
+<argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+<argument name="requestFieldName" xsi:type="string">id</argument>
+
+Magento automatically  wires up  the data  and inserts  it through the mui/index/render controller action
+
+DataSource aggregates an object of class implements the interface \Magento\Framework\View\Element\UiComponent\DataProvider\DataProviderInterface
+
+data provider class mention under datasource of form and it extends \Magento\Ui\DataProvide\AbstractDataProvider
+
+To get system configuration value
+\Magento\Framework\App\Config\ScopeConfigInterface=>getValue('section\group\fieldname',$storescope);

@@ -1,0 +1,7 @@
+"Empty identifier field name" when no id field name specified
+"Empty main table name" when no main table specified
+unique constraint violation found when trying a row
+with a primary key
+that already exists
+The resource model provides methods that make retrieving and saving rows to and
+from the database table very easy.

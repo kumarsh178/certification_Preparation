@@ -1,0 +1,38 @@
+retrieve specific type of product:
+
+$productRepository = \Magento\Catalog\Api\ProductRepositoryInterface;
+$searchCrieteriaBuilder = \Magento\Framework\Api\SearchCrieteriaBuilder;
+$search = $searchCrieteriaBuilder->addFilter(\Magento\Catalog\Api\Data\ProductInterface::TYPE_ID,\Magento\Bundle\Model\Product::TYPE_CODE)->create();
+
+$productRepositoryInterface->getList($search)->getItems();
+
+customize the price calculation process
+\Magento\Catalog\Model\Product\Type\Price::calculatePrice
+Base price
+special price
+tier price
+catalog price rule
+
+tier price is applicable to quantity,customer group,websites
+
+if you want to customize price you can use plugins afterCalculatePrice
+
+#pricing render or setup in Magento\Catalog\View\Base\Layout\Default.xml
+
+product.price.render.default
+\Magento\Framework\Pricing\Render
+
+To create a category;
+$cateGoryData = \Magento\Catalog\Api\Data\CategoryInterfaceFactory;
+$categoryRepository = \Magento\Catalog\Api\CategoryRepositoryInterface;
+
+$categoryData->setName('test')->setParentId(1)->setIsActive();
+$categoryRepository->save($cateGoryData);
+
+To get 5 products
+$catlogRepository = \Magento\Catalog\Api\CatalogRepository;
+$searchCrieteriaBuilder = \Magento\Framework\Api\SearchCrieteriaBuilder;
+
+$search= $searchCrieteriabuilder->setPageSize(5)->create();
+$catalogRepository->getList($search)->getItems();
+catalogrule_product_price

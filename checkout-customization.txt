@@ -32,3 +32,128 @@ There are two available types of payment tokens:
 \Magento\Vault\Api\Data\PaymentTokenFactoryInterface::TOKEN_TYPE_ACCOUNT is used for payment accounts like PayPal
 https://devdocs.magento.com/guides/v2.2/payments-integrations/base-integration/payment-option-config.html
 https://www.mageplaza.com/kb/how-to-configure-store-urls-magento-2.html
+
+#Each of following entity extends
+Magento\Framework\Model\AbstractExtensibleModel
+To get quote
+\Magento\Quote\Model\Session::getQuote
+\Magento\Quote\Model\Quote::getQuote
+\Magento\Quote\Model\Quote\Item.php
+quote_item
+quote are stored in quote table
+Address:
+Magento\Quote\Model\Quote\Address
+
+#Shopping cart rules:
+Magento\SalesRule model handle this logic
+There are 6 way to add item in cart:
+1 . from frontend
+2. from backend
+3. from wishlist
+4. reorder product
+5. via rest api
+6. while merging quote
+During quotes merge (visitor has items in their cart, logs in, the current quote
+is merged with the quote associated with the logged in customer)
+
+# To modify totals
+use sales.xml
+<section name="quote">
+  <group name="totals">
+    <item name="tax" intance="Magento\Tax\Model\Sales\Total\Quote\Tax" sort_order="450">
+	  <renderer name="frontend" instance="Magento\Tax\Block\Checkout\Tax"/>
+	  <renderer name="adminhtml" instance="Magento\Sales\Block\Adminhtml\Order\Create\Total\Tax"/>
+	</item>
+  </group>
+</section>
+
+Every Total model extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
+And implements \Magento\Quote\Model\Quote\Address\Total\CollectorInterface
+
+Adding an item into cart:
+Magento\Sales\Model\Quote::addItem
+
+To add shopping cart price rules:
+setup/UpgradeData.php
+
+You cannot have one
+product in your cart and another appear for free (or a discount).
+
+Checkout_cart_product_add_after =>frontend,backend and rest
+
+sales_quote_product_add_after
+$this->_eventManager->dispatch('sales_quote_product_add_after', ['items' => $items]);
+This event is fire when an item will added in and when item will be update
+For this event, you can current quote items list using $observer->getItems()
+This event is fire both for frontend and backend
+
+to change price =>checkout_cart_save_after
+
+These products are rendered as specified
+checkout_cart_item_renderer.xml
+The renderer block specified the as parameter to determine
+which child to render for the given input.
+
+Create an observer for sales_quote_remove_item
+or  use plugins
+Magento\Quote\Model\Quote::removeItem
+or use 
+Magento\Quote\Api\CartItemRepositoryInterface
+
+#To add field in shipping address
+add new coulmn in sales_order_address
+replicate shipping-address-fieldset item from checkout_index_index.xml
+
+# shipping method extends Magento\Shipping\Model\Carrier\AbstractCarier and implements Magento\Shipping\Model\Carrier\CarrierInterface
+use collectRates to add shipping method and return that shipping method
+/** @var \Magento\Shipping\Model\Rate\Result $result */
+        $result = $this->_rateResultFactory->create();
+
+        /** @var \Magento\Quote\Model\Quote\Address\RateResult\Method $method */
+        $method = $this->_rateMethodFactory->create();
+
+        $method->setCarrier($this->_code);
+        $method->setCarrierTitle($this->getConfigData('title'));
+
+        $method->setMethod($this->_code);
+        $method->setMethodTitle($this->getConfigData('name'));
+
+        $amount = $this->getShippingPrice();
+
+        $method->setPrice($amount);
+        $method->setCost($amount);
+
+        $result->append($method);
+
+        return $result;
+Magento\Shipping\Model\Rate\Result =>append the shipping method into it
+Magento\Quote\Model\Quote\Address\RateResult\Method set every thing into it and append that object with Magento\Shipping\Model\Rate\Result
+\Magento\
+Shipping\Model\Carrier\AbstractCarrierOnline.
+
+#Add a payment method :
+Add the configuration into system.xml
+replicate the checkout_index_index.xml
+and add payment method into  
+
+<?xml version="1.0"?>
+<item name="checkout">
+    <item name="children">
+        <item name="steps">
+                <item name="children">
+                   <item name="billing-step">
+                     <item name="component" xsi:type="uiComponent"></item>
+                         <item name="children">
+                            <item name="renderes" xsi:type="array">
+                                merge payment gateway here
+                            </item>
+                         </item>
+                   </item>
+                </item>
+        </item>
+    </item>
+</item>
+
+
+push your payment method with \Magento_checkout\js\model\payment\renderrer-list
+

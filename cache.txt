@@ -11,3 +11,13 @@ Step1 => Create a class which is extend \Magento\Framework\Cache\Frontend\Decora
   }
   %cache_type_id% defines unique identifier of a cache type.
 %CACHE_TYPE_TAG% defines unique tag to be used in the cache type scoping.
+
+
+cache should be extends
+\Magento\Framework\Cache\Frontend\Decorator\TagScope
+
+in the contructor inject Magento\Framework\App\CacheType\FrontendPool
+
+composer require magento/product-community-edition 2.2.6 --no-update
+composer require magento/product-enterprize-edition 2.2.6 --no-update
+composer update
