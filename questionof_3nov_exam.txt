@@ -1,0 +1,60 @@
+1. how to make category url seo friendly.
+url_rewrite
+use action 
+use plugins
+2.To use system config value default
+config.xml
+3.how to use validation with ui form .
+<seting>
+<validation></validation>
+</seting>
+4. all order is being placed in pending status.client want to be place in processing status.
+use observer
+use plugins
+sales/order/states
+5. how to change addtocart rules
+6.want to display product brand on cart page under product item
+7.want dispaly configurable selected image on cart page check system configuration
+8.a attribute value use in flat table what are option need to do so of eav attribute
+9. credit memo refund offline and online processing
+10.what will be the best process to export order to an erp
+observer
+plugins
+11. to make an entity extensible which class should implements
+\Magento\Framework\Api\CustomAttributeDataInterface
+12.there is parent theme which has 3column layouts for customer dashboard
+and there are two child theme for 1 theme want to 2column and 2nd theme want to 3 column how will it possible.
+13.want to add an extra column in sales_order_history grid in frontend how will it possible.
+14.for the frontend and block which class inherit
+15. sales order total order yes select from backend what is doing
+16.customize category tree structure
+17.want set limited lenth for customer first name how will it possible
+18. if a eav product attribute want comma seperated value and validate it use in proper how will it possible
+19. want to create a drop down attrribute which will be list all blocks in it how will it possible
+20.we have intsall a module suddenly not able to view any page from where should we start debuging
+21.want to track out html for one off controller how will it possible.
+22.for json which class use to magento\controller\result\json
+23. want add custom router how will it register  in di xml
+24. view model class
+25.want use different css class for header and footer block how will it be possible
+26.i created a default.xml with in <refernce block="content"><block cachebale="false"></block></refernce>
+what will happend do practical for clarificatiom
+27.we have a categor attribute
+28. want to check how many category name has "dress" string with their name how will it done.
+29. to show customer address attribute in admin and make it saveable how will it possible
+30.a custom table has two column want to use this table with catalog rule how will it possible.
+31.get 5 product item to use of repository
+32.to save category with the help of repository how will it possible
+33.want to add a payment method and use appi to send value what are thing need to be done to do so.
+34.add meta information to quote item how to do it.
+35. magento upgrade step note: remember the command
+36.read plugins carefully
+37.if varnish cach is not clean then what should we do.
+38.production mode and developer mode diff
+39.varchar and static backend_type
+40.configure datasource with js ui component
+41.block comination how to use it should we use same block for many template file for same page
+or multiple block for same file
+42.path to templates
+43.use of vault
+44.
