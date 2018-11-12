@@ -1,0 +1,2 @@
+https://magento.stackexchange.com/questions/225497/social-login-extension-for-m1
+https://inchoo.net/magento/social-connect-magento-extension/

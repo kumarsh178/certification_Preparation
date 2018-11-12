@@ -2,59 +2,67 @@
 url_rewrite
 use action 
 use plugins
-2.To use system config value default
+2.how To use default value for system configuration
 config.xml
-3.how to use validation with ui form .
+3.how to use validation in ui form.
 <seting>
 <validation></validation>
 </seting>
-4. all order is being placed in pending status.client want to be place in processing status.
+4. all order is being placed in pending status.client want to be place in processing status how it will be done.
 use observer
 use plugins
 sales/order/states
+add processing status under payment gateway
 5. how to change addtocart rules
-6.want to display product brand on cart page under product item
-7.want dispaly configurable selected image on cart page check system configuration
-8.a attribute value use in flat table what are option need to do so of eav attribute
-9. credit memo refund offline and online processing
+6.want to display product brand on cart page under each item tell the process that how we will done this.
+7.want to display select image of configurable product on cart page 
+check the configuration stores/configuration/checkout/shopping cart/thumbnail it self
+8.how to make a attribute to use in flat table
+9. Do the r&d on Credit memo refund offline and online processing how it will done when using erp.
 10.what will be the best process to export order to an erp
 observer
 plugins
 11. to make an entity extensible which class should implements
 \Magento\Framework\Api\CustomAttributeDataInterface
-12.there is parent theme which has 3column layouts for customer dashboard
+12.There is parent theme which has 3column layouts for customer dashboard
 and there are two child theme for 1 theme want to 2column and 2nd theme want to 3 column how will it possible.
-13.want to add an extra column in sales_order_history grid in frontend how will it possible.
-14.for the frontend and block which class inherit
+13.want to add an extra column in sales_order_history grid in frontend how it will be done.
+14.for the frontend static block which class inherit
 15. sales order total order yes select from backend what is doing
 16.customize category tree structure
 17.want set limited lenth for customer first name how will it possible
 18. if a eav product attribute want comma seperated value and validate it use in proper how will it possible
-19. want to create a drop down attrribute which will be list all blocks in it how will it possible
-20.we have intsall a module suddenly not able to view any page from where should we start debuging
-21.want to track out html for one off controller how will it possible.
-22.for json which class use to magento\controller\result\json
-23. want add custom router how will it register  in di xml
-24. view model class
-25.want use different css class for header and footer block how will it be possible
+19. Want to create a drop down attrribute which will be list all blocks in it how will it possible
+20.we have intsall a module suddenly not able to view any page from where should we start 
+21.want to track out html for one of controller how will it done. check the request flow processing
+22.for response json which class should we use?.
+23. want add custom router how will it register  in di xml.
+24. view model block => remember syntax
+25.want use different css class for header and footer block how will it be possible.
 26.i created a default.xml with in <refernce block="content"><block cachebale="false"></block></refernce>
-what will happend do practical for clarificatiom
-27.we have a categor attribute
+what will happend .
+All store page non cachable
+only default page non cachable
+
+27.we have a category attribute it is not saving it value in backend check it is_system should be 0
 28. want to check how many category name has "dress" string with their name how will it done.
-29. to show customer address attribute in admin and make it saveable how will it possible
-30.a custom table has two column want to use this table with catalog rule how will it possible.
-31.get 5 product item to use of repository
-32.to save category with the help of repository how will it possible
-33.want to add a payment method and use appi to send value what are thing need to be done to do so.
+we can search it from catalog_category_entity_varchar table 
+29. to show customer address attribute in admin and make it saveable how will it done.
+30.a custom table has two column want to use this table with catalog rule how will it done.
+31.Get 5 product item to use of repository
+32.to save category with the help of repository how will it done
+33.want to add a payment method and use api to send value to payment gateway what are things need to be done to do so.
 34.add meta information to quote item how to do it.
-35. magento upgrade step note: remember the command
-36.read plugins carefully
+35. magento upgrade step. note: remember the command and step
+36.Read plugins sort order deeply
 37.if varnish cach is not clean then what should we do.
-38.production mode and developer mode diff
-39.varchar and static backend_type
-40.configure datasource with js ui component
-41.block comination how to use it should we use same block for many template file for same page
+38.production mode and developer mode diff.
+39.varchar and static backend_type.
+40.configure datasource with js ui component.
+41.block comination how to use it. should we use same block for many template file for same page.
 or multiple block for same file
-42.path to templates
+these kind of option will be there.
+42.location of templates path
 43.use of vault
-44.
+44.If a user add item to cart  and then he login again he added same item into the cart and see in cart there are two item with same nam with differen quantity how to resolved this.
+45.suppose i want to configure cdn with magento2 and dont want to  store image on base system want to storage image on cdn server how it is possible
