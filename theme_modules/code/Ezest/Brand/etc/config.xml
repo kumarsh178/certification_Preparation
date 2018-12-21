@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+	
+        <extfee_customfee>
+            <extfee_customfee>
+                <extfee_status>1</extfee_status>
+            </extfee_customfee>
+        </extfee_customfee>
+        <extfee_customfee>
+            <extfee_customfee>
+                <extfee_name>Extra Fee</extfee_name>
+            </extfee_customfee>
+        </extfee_customfee>
+        <extfee_customfee>
+            <extfee_customfee>
+                <extfee_customfeeamount>1.00</extfee_customfeeamount>
+            </extfee_customfee>
+        </extfee_customfee>
+        <extfee_customfee>
+            <extfee_customfee>
+                <extfee_minimumorderamount>0.01</extfee_minimumorderamount>
+            </extfee_customfee>
+        </extfee_customfee>
+	
+    </default>
+</config>
+			

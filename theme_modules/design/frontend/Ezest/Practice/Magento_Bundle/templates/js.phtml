@@ -1,0 +1,26 @@
+<script>
+	
+	require(['jquery'],function(){
+			console.log('okkkkkkkkkk helooooo');
+			jQuery(window).load(function(){
+					jQuery('#bundle-option-1-qty-input').on('keyup',function(){
+					jQuery('#bundle-option-2-qty-input').val(jQuery(this).val());
+					jQuery('#bundle-option-2-qty-input').attr('value',jQuery(this).val());
+					jQuery('#bundle-option-2-qty-input').change();
+					});
+					jQuery('#bundle-option-2').on('change',function(){
+						console.log(jQuery('option:selected',this).index());
+						jQuery('#bundle-option-3-qty-input').val(jQuery('option:selected',this).index());
+						jQuery('#bundle-option-3-qty-input').attr('value',jQuery('option:selected',this).index());
+						jQuery('#bundle-option-4-qty-input').val(jQuery('option:selected',this).index());
+						jQuery('#bundle-option-4-qty-input').attr('value',jQuery('option:selected',this).index());
+						jQuery("#bundle-option-4-11").prop("checked", true);
+						jQuery("#bundle-option-3-10").prop("checked", true);
+						jQuery('#bundle-option-3-qty-input').change();
+						jQuery('#bundle-option-4-qty-input').change();
+					});
+					/*jQuery("#bundle-option-4-11").prop("checked", false);
+						jQuery("#bundle-option-3-10").prop("checked", false);*/
+			});
+	});
+</script>

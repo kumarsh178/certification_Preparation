@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Ezest_Brand::parent" title="Brand" module="Ezest_Brand" sortOrder="100" resource="Ezest_Brand::parent"/>
+        <add id="Ezest_Brand::index" title="Brand Index" module="Ezest_Brand" sortOrder="10" action="brand/index" resource="Ezest_Brand::index" parent="Ezest_Brand::parent"/>
+		<add id="Ezest_Brand::brand" title="Brand Brand" module="Ezest_Brand" sortOrder="20" parent="Ezest_Brand::parent" action="brand/brand" resource="Ezest_Brand::brand"/>
+
+    </menu>
+</config>

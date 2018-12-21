@@ -1,0 +1,8 @@
+<!-- ko if: isDisplayed() -->
+<tr  data-bind="visible: isDisplayed()" class="totals fee excl" >
+    <th class="mark" colspan="1" scope="row" data-bind="text: getFeeLabelExtfee()"></th>
+    <td class="amount">
+        <span class="price" data-bind="text: getFormattedPrice()"></span>
+    </td>
+</tr>
+<!-- /ko -->

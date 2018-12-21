@@ -1,0 +1,15 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+           
+             <block class="Ezest\Practice\Block\Index\CartItems" name="practice_index_index2" template="Ezest_Practice::blocktest2.phtml">
+            </block>
+             <block class="Ezest\Practice\Block\Index\CartItems" name="practice_index_index3" template="Ezest_Practice::blocktest.phtml">
+            </block>
+             <block class="Ezest\Practice\Block\Index\CartItems" name="practice_index_index4" template="Ezest_Practice::blocktest.phtml">
+            </block>
+             <block class="Ezest\Practice\Block\Index\CartItems" name="practice_index_index5" template="Ezest_Practice::blocktest.phtml">
+            </block>
+        </referenceContainer>
+    </body>
+</page>
