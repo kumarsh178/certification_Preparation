@@ -13,7 +13,6 @@
 	
         </fieldset>
         <fieldset id="sales_convert_quote">
-		
             <field name="extfee">
                 <aspect name="to_order"/>
             </field>

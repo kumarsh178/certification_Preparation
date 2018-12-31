@@ -8,4 +8,7 @@
 			</argument>
 		</arguments>
 	</type>
+	 <type name="Magento\Catalog\Api\ProductRepositoryInterface">
+        <plugin name="get_brand_logo" type="Ezest\Brand\Plugin\ProductGet"/>
+    </type>
 </config>
