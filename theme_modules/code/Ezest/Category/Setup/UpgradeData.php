@@ -133,6 +133,34 @@ class UpgradeData implements UpgradeDataInterface
 					]
 				);
 		}
+		//echo ' version :'.$context->getVersion(); exit;
+		if(version_compare($context->getVersion(), '1.0.6') < 0){
+			$eavSetup->addAttribute(
+					\Magento\Catalog\Model\Product::ENTITY,
+					'cms_blocks',
+					[
+						'type' => 'text',
+						'backend' => '',
+						'frontend' => '',
+						'label' => 'Select Cms Blocks',
+						'input' => 'select',
+						'class' => '',
+						'source' => 'Ezest\Category\Model\Source\CmsBlocks',
+						'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+						'visible' => true,
+						'required' => false,
+						'user_defined' => false,
+						'default' => '',
+						'searchable' => false,
+						'filterable' => false,
+						'comparable' => false,
+						'visible_on_front' => false,
+						'used_in_product_listing' => true,
+						'unique' => false,
+						'apply_to' => ''
+					]
+				);
+		}
 
 		// for remove attribute
 		/* $eavSetup->removeAttribute(

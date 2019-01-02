@@ -71,6 +71,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
             $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
             $brand = $objectManager->create('Ezest\Brand\Model\Brand'); 
             //echo get_class($_item);
+            echo get_class($_item->getProduct());
             echo 'heloo'.$_item->getProduct()->getExtensionAttributes()->getBrandLogo();
             $brandImage = $brand->load($_item->getProduct()->getData('sample_attribute2'))->getBrandImage();
             ?>
