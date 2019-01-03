@@ -1,0 +1,22 @@
+     Search Crieteria types in  magento2:
+	 
+	 available conditions
+
+     "eq" => equalValue
+     "neq" => notEqualValue
+     "like" => likeValue
+     "nlike" => notLikeValue
+     "is" => isValue
+     "in" => inValues
+     "nin" => notInValues
+     "notnull" => valueIsNotNull
+     "null" => valueIsNull
+     "moreq" => moreOrEqualValue
+     "gt" => greaterValue
+     "lt" => lessValue
+     "gteq" => greaterOrEqualValue
+     "lteq" => lessOrEqualValue
+     "finset" => valueInSet
+     "from" => fromValue, "to" => toValue
+	 have a look below link to or and and condition
+	 https://magento.stackexchange.com/questions/200941/magento2-how-to-add-multiple-and-and-or-conditions-to-filter-filtergroups?noredirect=1&lq=1
